@@ -35,7 +35,8 @@ def post_edit(request, pk):
             post.author = request.user
             post.published_date = timezone.now()
             post.save()
-            return redirect('post_detail', pk=post.pk)
+            post2 = get_object_or_404(Post, pk=pk)
+            return redirect('blog/post_list.html', {'posts': post2})
     else:
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
